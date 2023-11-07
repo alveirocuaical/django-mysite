@@ -1,8 +1,10 @@
 {% extends "layouts/base.html" %}
-
+{% load static %}
 {% block content %}
 
 <h1>Wellcome to Django App {{ title }}</h1>
+
+<img src="{% static "imgs/platzi.png" %}" alt="" >
 <p>
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti saepe iusto
   vero exercitationem dolore maiores placeat. Cum repellat, error quod corporis

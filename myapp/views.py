@@ -1,6 +1,8 @@
 
+from turtle import title
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from myapp.forms import CreateNewTaskForm, CreateProjectForm
 
 
 from myapp.models import Project, Task
@@ -30,3 +32,32 @@ def tasks(request, id):
     tasks = Task.objects.filter(project_id=id)
     
     return render(request, 'tasks.html', {'tasks': tasks})
+
+
+def create_task(request):
+    
+    
+    if request.method == 'POST':
+        Task.objects.create(
+        title = request.POST['title'],
+        description = request.POST['description'],
+        project_id = 1
+        )
+        return redirect(f'/tasks/1')
+        
+    return render(request, 'create_task.html', {
+        'form' : CreateNewTaskForm()
+    })
+    
+    
+def create_project(request):
+    
+    if request.method == 'POST':
+        Project.objects.create(
+        name = request.POST['name']
+        )
+        return redirect('proyectos')
+    
+    return render(request, 'create_project.html',{
+        'form': CreateProjectForm()
+    })
